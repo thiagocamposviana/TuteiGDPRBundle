@@ -1,6 +1,12 @@
 services:
-    ezplatform.core.command.trash_purge:
+    ezplatform.core.command.user_purge:
         class: Tutei\GDPRBundle\Command\UserPurgeCommand
+        arguments:
+            - '@ezpublish.api.repository'
+        tags:
+            - { name: console.command }
+    ezplatform.core.command.user_hide:
+        class: Tutei\GDPRBundle\Command\HideUserContentCommand
         arguments:
             - '@ezpublish.api.repository'
         tags:
