@@ -11,3 +11,9 @@ services:
             - '@ezpublish.api.repository'
         tags:
             - { name: console.command }
+    ezplatform.core.command.user_export:
+        class: Tutei\GDPRBundle\Command\UserExportCommand
+        arguments:
+            - '@ezpublish.api.repository'
+        tags:
+            - { name: console.command }

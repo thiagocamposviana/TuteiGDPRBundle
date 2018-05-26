@@ -20,3 +20,7 @@ php bin/console tutei:user-purge $userId $contentTypeOrder --env=dev
 Proof of concept for a command to disable a user and hide its contents (eZ Platform):
 
 php bin/console tutei:user-hide $userId --env=dev
+
+Proof of concept for a command to export a user and hide its contents in json_format (eZ Platform):
+
+php bin/console tutei:user-export $userId --env=dev
