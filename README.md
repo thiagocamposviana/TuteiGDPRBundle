@@ -16,3 +16,7 @@ Just some random code to validate query parameters before sending to google anal
 Proof of concept for a command to delete a user and its contents (eZ Platform):
 
 php bin/console tutei:user-purge $userId $contentTypeOrder --env=dev
+
+Proof of concept for a command to disable a user and hide its contents (eZ Platform):
+
+php bin/console tutei:user-hide $userId --env=dev
