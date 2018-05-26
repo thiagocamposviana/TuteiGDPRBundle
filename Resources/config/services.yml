@@ -1,0 +1,4 @@
+services:
+#    tutei_gdpr.example:
+#        class: Tutei\GDPRBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

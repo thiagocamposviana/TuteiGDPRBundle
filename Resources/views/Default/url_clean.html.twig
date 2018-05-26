@@ -1,0 +1,57 @@
+<html>
+    <body>
+        <script>
+            function GACleanURL()
+            {
+                var urlParams = '';
+                var cleanURL = location.pathname;
+                var queryString = location.search.replace( /[?](.+)/i, "$1" ).trim();
+
+                if( queryString !== '' )
+                {
+                    var parameters = queryString.split('&');
+                    for( var i in parameters )
+                    {
+                        var param = parameters[i].split('=');
+                        if (typeof param[0] === "undefined" || typeof param[1] === "undefined") {
+                            continue;
+                        }
+                        var urlParam = '';
+                        switch( param[0].toLowerCase() )
+                        {
+                            case 'page':
+                            case 'offset':
+                                // clean value so it only accepts integers
+                                if( param[1].match( /[0-9]+/ ) )
+                                {
+                                    urlParam = parameters[i].toLowerCase();
+                                }
+                                break;
+                            case 'searchtext':
+                                // remove any special characters from the string
+                                urlParam = 'searchtext=' + param[1].replace(/[^a-zA-Z0-9]/g,' ').toLowerCase();
+                                break;
+                        }
+                        if( urlParam !== '' )
+                        {
+                            // check if the main url params string is not empty, if so add the & character
+                            if( urlParams !== '' )
+                            {
+                                urlParams += '&';
+                            }
+                            urlParams += urlParam;
+                        }
+
+                    }
+                }
+
+                if( urlParams )
+                {
+                    cleanURL += '?' + urlParams;
+                }
+                return cleanURL;
+            }
+            console.log( GACleanURL() );
+        </script>
+    </body>
+</html>

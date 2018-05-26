@@ -1,0 +1,10 @@
+tutei_gdpr_youtube_test:
+    path:     /tutei/gdpr/youtube_test
+    controller: TuteiGDPRBundle:Default:index
+    defaults:
+        template: 'TuteiGDPRBundle:Default:youtube.html.twig'
+tutei_gdpr_url_clean_test:
+    path:     /tutei/gdpr/url_clean_test
+    controller: TuteiGDPRBundle:Default:index
+    defaults:
+        template: 'TuteiGDPRBundle:Default:url_clean.html.twig'

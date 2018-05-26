@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <style>
+         .hidden
+         {
+             display: none;
+         }
+        </style>
+    {% javascripts
+        filter='?uglifyjs2'
+        output='cms/js/*'
+        '@TuteiGDPRBundle/Resources/public/js/jquery-3.3.1.min.js'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    </head>
+    <body>
+        <p>youtube-nocookie.com will still set cookies for the user if the user is logged in on google, this is a proof of concept to only load the video after the user consent.</p>
+        <div class="youtube-nocookie" data-video-id="https://www.youtube-nocookie.com/embed/Kb4-1G4Tc-I?rel=0">
+            <div class="disabled hidden">
+                <div><img src="/bundles/tuteigdpr/images/hqdefault.jpg" width="560" height="315" data-video-id="https://www.youtube-nocookie.com/embed/Kb4-1G4Tc-I?rel=0"></div>
+                <button class="btn enable">Enable Youtube</button>
+            </div>
+            <div class="enabled hidden">
+                <button class="btn disable">Disable Youtube</button>
+            </div>
+        </div>
+        <div class="youtube-nocookie" data-video-id="https://www.youtube-nocookie.com/embed/LZ5nX0FTH6Q?rel=0">
+            <div class="disabled hidden">
+                <div><img src="/bundles/tuteigdpr/images/hqdefault.jpg" width="560" height="315" data-video-id="https://www.youtube-nocookie.com/embed/Kb4-1G4Tc-I?rel=0"></div>
+                <button class="btn enable">Enable Youtube</button>
+            </div>
+            <div class="enabled hidden">
+                <button class="btn disable">Disable Youtube</button>
+            </div>
+        </div>
+            {% javascripts
+                filter='?uglifyjs2'
+                output='cms/js/*'
+                '@TuteiGDPRBundle/Resources/public/js/js.cookie.min.js'
+            %}
+                <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        <script>
+            function enableYoutube()
+            {
+                var videos = $( '.youtube-nocookie' );
+                videos.find('.enabled').removeClass('hidden');
+                videos.each(function(){
+                    var videoHTML = '<div><iframe width="560" height="315" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>';
+                    $(videoHTML).prependTo( $(this).find('.enabled') );
+                    $(this).find('iframe').attr( 'src', $(this).attr('data-video-id') );
+                    $(this).find('iframe').append('');
+                });
+                
+            }
+            $(document).ready(function(){
+                if( Cookies.get('allow_youtube') )
+                {
+                    enableYoutube();
+                }
+                else
+                {
+                    $('.youtube-nocookie .disabled').removeClass('hidden');
+                }
+            });
+            $('.youtube-nocookie .enable').click(function(){
+                console.log('test');
+                Cookies.set('allow_youtube', 1);
+                $( '.youtube-nocookie .disabled' ).addClass('hidden');
+                enableYoutube();
+            });
+            $('.youtube-nocookie .disable').click(function(){
+                console.log('test');
+                Cookies.remove('allow_youtube');
+                window.location.reload();
+            });
+        </script>
+    </body>
+</html>
