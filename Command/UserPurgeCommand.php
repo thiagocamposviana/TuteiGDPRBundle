@@ -81,7 +81,22 @@ class UserPurgeCommand extends ContainerAwareCommand
                     $contentService->deleteContent( $content->valueObject->contentInfo );
                 }
             }
-            $contentService->deleteContent( $contentInfo );
+            // remaining stuff
+            $query = new Query();
+            $query->filter = new Criterion\LogicalAnd(
+                array(
+                    $createdCriterion
+                )
+            );
+
+            $result = $searchService->findContent( $query );
+            foreach( $result->searchHits as $content)
+            {
+                $contentService->deleteContent( $content->valueObject->contentInfo );
+            }
+            $userService = $this->repository->getUserService();
+            $userService->deleteUser( $userService->loadUser( $userId ) );
+            
         } catch (Exceptions\NotFoundException $e) {
             $output->writeln('Can\'t find content id: ' . $userId);
         } catch (Exceptions\UnauthorizedException $e) {
