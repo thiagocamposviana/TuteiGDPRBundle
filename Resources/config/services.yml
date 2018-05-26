@@ -1,4 +1,7 @@
 services:
-#    tutei_gdpr.example:
-#        class: Tutei\GDPRBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    ezplatform.core.command.trash_purge:
+        class: Tutei\GDPRBundle\Command\UserPurgeCommand
+        arguments:
+            - '@ezpublish.api.repository'
+        tags:
+            - { name: console.command }

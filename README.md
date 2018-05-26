@@ -11,3 +11,8 @@ This is because if the user is logged in on google it will generate cookies even
 /tutei/gdpr/url_clean_test
 
 Just some random code to validate query parameters before sending to google analytics.
+
+
+Proof of concept for a command to delete a user and its contents (eZ Platform):
+
+php bin/console tutei:user-purge $userId $contentTypeOrder --env=dev
